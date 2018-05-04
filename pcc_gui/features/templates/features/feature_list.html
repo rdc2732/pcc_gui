@@ -1,0 +1,17 @@
+{% block content %}
+    <h1>Feature List</h1>
+
+    {% if feature_list %}
+    <ul>
+
+      {% for feature in feature_list %}
+      <li>
+        <a href="{{ feature.get_absolute_url }}">{{ feature.feature_name }}</a> ({{feature.feature_name}})
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no features in the database.</p>
+    {% endif %}
+{% endblock %}
