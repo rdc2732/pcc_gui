@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import generic
+from django.template import loader
 
 from .models import Feature, Dependency
 
@@ -45,3 +46,16 @@ def loadfmm(request):
 
 class FeatureListView(generic.ListView):
     model = Feature
+
+
+def group_view(request):
+    group_list = []
+    for g in Feature.objects.values('group_name').distinct():
+        group_list.append(g.values()[0])
+    print group_list
+    template = loader.get_template('features/group_list.html')
+    context = {
+        'group_list': group_list,
+    }
+    return HttpResponse(template.render(context, request))
+
