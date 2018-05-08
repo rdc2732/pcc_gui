@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'feature2.apps.Feature2Config',
     'features.apps.FeaturesConfig',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
