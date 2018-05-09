@@ -36,7 +36,14 @@ class Feature(models.Model):
     option_max = models.IntegerField(blank=True, null=True)                         # FMM range of options maximum
     enabled = models.NullBooleanField(default=False)                                # Feature enabled state
     selected = models.NullBooleanField(default=False)                               # Feature selected state
-    dependency = models.ManyToManyField('self', related_name='dependent', symmetrical=False)
+
+    def __str__(self):
+        return self.name
+
+
+class Dependency(models.Model):
+    feature = models.ForeignKey(Feature, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, blank=True)          # FMM required dependency
 
     def __str__(self):
         return self.name

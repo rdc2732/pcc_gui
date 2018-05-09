@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.views import generic
 from django.template import loader
 
-from .models import Group, Function, Feature
+from .models import Group, Function, Feature, Dependency
 
 # Create your views here.
 def index(request):
@@ -33,26 +33,28 @@ def loadfmm(request):
         if groups.count() == 0:
             group = Group(name=group_name)
             group.save()
+        group = Group.objects.get(name=group_name)
 
         functions = Function.objects.filter(name=function_name)  # Add Function if it does not exist
         if functions.count() == 0:
-            function = groups_set.create(name=function_name)
+            function = group.function_set.create(name=function_name)
             function.save()
+        function = Function.objects.get(name=function_name)
 
         features = Feature.objects.filter(name=feature_name)  # Add Feature if it does not exist
         if features.count() == 0:
-            feature = functions_set.create(name=feature_name)
-            feature.selection_name = selection_name
-            feature.choice_type = choice_type
-            feature.option_min = option_min
-            feature.option_max = option_max
+            feature = function.feature_set.create(name=feature_name)
+            feature.selection_name=selection_name
+            feature.choice_type=choice_type
+            feature.option_min=option_min
+            feature.option_max=option_max
             feature.save()
+        feature = Feature.objects.get(name=feature_name)
 
         for dependency in dependencies:
             if dependency != "n/a":
-                dep = feature_set.create(name=dependency)
-                dep.save()
-
+                feature.dependency_set.create(name=dependency)
+        feature.save()
 
         line_count += 1
 
