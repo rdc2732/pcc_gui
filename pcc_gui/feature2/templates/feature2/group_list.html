@@ -1,0 +1,15 @@
+<h1>Group List 2</h1>
+
+{% if group_list %}
+    {% for group in group_list %}
+    <table>
+        <tr>
+            <td> {{ group.name }} </td>
+            <td> {{ function.name }} </td>
+            <td> {{ group.function.feature.name }} </td>
+        </tr>
+    </table>
+    {% endfor %}
+{% else %}
+    <p>There are no groups in the database.</p>
+{% endif %}

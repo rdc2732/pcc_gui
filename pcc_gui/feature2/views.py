@@ -60,3 +60,13 @@ def loadfmm(request):
 
     response_text = "FMM.txt load complete. " + str(line_count) + " records Processed. "
     return HttpResponse(response_text)
+
+
+def group_view2(request):
+    group_list = Group.objects.select_related()
+
+    template = loader.get_template('feature2/group_list.html')
+    context = {
+        'group_list': group_list,
+    }
+    return HttpResponse(template.render(context, request))
