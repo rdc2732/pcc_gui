@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views import generic
+from django.views.generic import ListView
 from django.template import loader
 
 from .models import Group, Function, Feature, Dependency
@@ -62,11 +62,26 @@ def loadfmm(request):
     return HttpResponse(response_text)
 
 
-def group_view2(request):
-    group_list = Group.objects.select_related()
+def dependency_view2(request):
+    template = loader.get_template('feature2/dependency_list.html')
 
-    template = loader.get_template('feature2/group_list.html')
+    dependency_list = Dependency.objects.select_related()
+
     context = {
-        'group_list': group_list,
+        'dependency_list': dependency_list,
     }
     return HttpResponse(template.render(context, request))
+
+
+def showdetails(request):
+    template = loader.get_template('feature2/showdetails.html')
+
+    print 'rev 6'
+    objects = Function.objects.select_related()
+
+    for object in objects:
+        fields = dict((field.name, field.value_to_string(object)) for field in object._meta.fields)
+
+    print fields
+
+    return HttpResponse(template.render(fields, request))

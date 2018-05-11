@@ -1,0 +1,71 @@
+<h2>Dependency List 1</h2>
+
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% if dependency_list %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>  Feature Group </th>
+                    <th>  Major Function </th>
+                    <th>  Feature </th>
+                    <th>  Dependency </th>
+                </tr>
+            </thead>
+
+    {% for dependency in dependency_list %}
+
+            <tbody>
+                <tr>
+                    <td>  a </td>
+                    <td>  b </td>
+                    <td>  c </td>
+                    <td>  d </td>
+                </tr>
+            </tbody>
+        </table>
+    {% endfor %}
+{% else %}
+    <p>There are no dependencies in the database.</p>
+{% endif %}
+
+===============================
+<h2>Dependency List 1</h2>
+{% if dependency_list %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>  Feature Group </th>
+                <th>  Major Function </th>
+                <th>  Feature </th>
+                <th>  Dependency </th>
+            </tr>
+        </thead>
+
+    {% for dependency in dependency_list %}
+
+        <tbody>
+            <tr>
+                <td>  {{ dependency.feature.function.group.name }} </td>
+                <td>  {{ dependency.feature.function.name }} </td>
+                <td>  {{ dependency.feature.name }} </td>
+                <td>  {{ dependency.name }} </td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% endfor %}
+{% else %}
+    <p>There are no dependencies in the database.</p>
+{% endif %}
+

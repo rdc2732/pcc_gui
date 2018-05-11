@@ -1,0 +1,9 @@
+<h2> Show Details rev 5 </h2>
+
+{% for object in objects %}
+    <tr>
+    {% for field, value in object.fields.iteritems %}
+        <td>{{ field }} : {{ value }}</td>
+    {% endfor %}
+    </tr>
+{% endfor %}

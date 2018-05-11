@@ -1,0 +1,39 @@
+<h2>Dependency List 1</h2>
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% if dependency_list %}
+    <table class="table table-striped table-condensed">
+        <caption>Dependency List</caption>
+        <thead>
+            <tr>
+                <th>  Feature Group </th>
+                <th>  Major Function </th>
+                <th>  Feature </th>
+                <th>  Dependency </th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for dependency in dependency_list %}
+                <tr>
+                    <td>  {{ dependency.feature.function.group.name }} </td>
+                    <td>  {{ dependency.feature.function.name }} </td>
+                    <td>  {{ dependency.feature.name }} </td>
+                    <td>  {{ dependency.name }} </td>
+                </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+
+{% else %}
+    <p>There are no dependencies in the database.</p>
+{% endif %}
+
